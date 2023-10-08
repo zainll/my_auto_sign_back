@@ -44,8 +44,15 @@ class CheckIn(object):
         }
         response = self.client.post(self.sign_url, headers=headers)
 
-        logging.info(self.masked_username + "\t" + response.json()["msg"])
-
+        #logging.info(self.masked_username + "\t" + response.json()["msg"])
+        try:
+            #logging.info(self.masked_username + "\t" + response.json()["msg"])
+            res = response.json()
+            print("response.json() :", str(res))
+            logging.info(self.masked_username + "\t" + response.json()["msg"])
+        except json.decoder.JSONDecodeError as e:
+            logging.info(self.masked_username + "\t")
+            print("JSONDecodeError:", str(e))
 
 if __name__ == "__main__":
     LOG_FORMAT = "%(asctime)s\t%(levelname)s\t%(message)s"
